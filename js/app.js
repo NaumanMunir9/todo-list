@@ -57,4 +57,16 @@ function addItem(value) {
   itemList.appendChild(div);
 }
 
-function handleItem(textValue) {}
+function handleItem(textValue) {
+  const items = itemList.querySelectorAll(".item");
+  items.forEach(function (item) {
+    if (item.querySelector(".item-name").textContent === textValue) {
+      // complete event listener
+      item
+        .querySelector(".complete-item")
+        .addEventListener("click", function () {
+          item.querySelector(".item-name").classList.toggle(".completed");
+        });
+    }
+  });
+}
