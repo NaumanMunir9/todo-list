@@ -26,6 +26,7 @@ itemForm.addEventListener("submit", function (e) {
     itemData.push(textValue);
 
     // localStorage
+    localStorage.setItem("list", JSON.stringify(itemData));
 
     // add event listeners
     handleItem(textValue);
@@ -76,6 +77,7 @@ function handleItem(textValue) {
         itemData = itemData.filter(function (item) {
           return item !== textValue;
         });
+        localStorage.setItem("list", JSON.stringify(itemData));
       });
 
       // delete event listener
@@ -84,6 +86,7 @@ function handleItem(textValue) {
         itemData = itemData.filter(function (item) {
           return item !== textValue;
         });
+        localStorage.setItem("list", JSON.stringify(itemData));
         showFeedback("item delete", "success");
       });
     }
@@ -92,6 +95,7 @@ function handleItem(textValue) {
 
 clearBtn.addEventListener("click", function () {
   itemData = [];
+  localStorage.removeItem("list");
   const items = itemList.querySelector(".item");
   if (items.length > 0) {
     items.forEach(function (item) {
