@@ -5,7 +5,27 @@ const itemList = document.querySelector(".item-list");
 const clearBtn = document.getElementById("clear-list");
 const feedback = document.querySelector(".feedback");
 
-let itemData = [];
+// let itemData = [];
+
+let itemData = JSON.parse(localStorage.getItem("list")) || [];
+console.log(itemData);
+
+if (itemData.length > 0) {
+  itemData.forEach(function (singleItem) {
+    itemList.insertAdjacentHTML(
+      "beforeend",
+      `<div class='item my-3'>
+      <h5 class="item-name text-capitalize"> ${singleItem} </h5>
+        <div class="item-icons">
+          <a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a>
+          <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
+          <a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a>
+        </div>
+      </div>`
+    );
+    handleItem(singleItem);
+  });
+}
 
 // form submission
 itemForm.addEventListener("submit", function (e) {
