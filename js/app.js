@@ -89,3 +89,13 @@ function handleItem(textValue) {
     }
   });
 }
+
+clearBtn.addEventListener("click", function () {
+  itemData = [];
+  const items = itemList.querySelector(".item");
+  if (items.length > 0) {
+    items.forEach(function (item) {
+      itemList.removeChild(item);
+    });
+  }
+});
