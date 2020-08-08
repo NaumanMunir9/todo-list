@@ -8,19 +8,18 @@ const feedback = document.querySelector(".feedback");
 // let itemData = [];
 
 let itemData = JSON.parse(localStorage.getItem("list")) || [];
-console.log(itemData);
 
 if (itemData.length > 0) {
   itemData.forEach(function (singleItem) {
     itemList.insertAdjacentHTML(
       "beforeend",
       `<div class='item my-3'>
-      <h5 class="item-name text-capitalize"> ${singleItem} </h5>
-        <div class="item-icons">
-          <a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a>
-          <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
-          <a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a>
-        </div>
+      <h5 class="item-name text-capitalize">${singleItem}</h5>
+      <div class="item-icons">
+        <a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a>
+        <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
+        <a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a>
+      </div>
       </div>`
     );
     handleItem(singleItem);
@@ -48,7 +47,7 @@ itemForm.addEventListener("submit", function (e) {
     // localStorage
     localStorage.setItem("list", JSON.stringify(itemData));
 
-    // add event listeners
+    // add event listeners to icons
     handleItem(textValue);
   }
 });
@@ -68,12 +67,12 @@ function addItem(value) {
   const div = document.createElement("div");
   div.classList.add("item", "my-3");
   div.innerHTML = `
-    <h5 class="item-name text-capitalize"> ${value} </h5>
-      <div class="item-icons">
-        <a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a>
-        <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
-        <a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a>
-      </div>
+    <h5 class="item-name text-capitalize">${value}</h5>
+    <div class="item-icons">
+      <a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a>
+      <a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a>
+      <a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a>
+    </div>
   `;
   itemList.appendChild(div);
 }
@@ -103,11 +102,11 @@ function handleItem(textValue) {
       // delete event listener
       item.querySelector(".delete-item").addEventListener("click", function () {
         itemList.removeChild(item);
+        showFeedback("item deleted", "success");
         itemData = itemData.filter(function (item) {
           return item !== textValue;
         });
         localStorage.setItem("list", JSON.stringify(itemData));
-        showFeedback("item delete", "success");
       });
     }
   });
@@ -116,7 +115,7 @@ function handleItem(textValue) {
 clearBtn.addEventListener("click", function () {
   itemData = [];
   localStorage.removeItem("list");
-  const items = itemList.querySelector(".item");
+  const items = itemList.querySelectorAll(".item");
   if (items.length > 0) {
     items.forEach(function (item) {
       itemList.removeChild(item);
