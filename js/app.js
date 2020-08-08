@@ -66,7 +66,18 @@ function handleItem(textValue) {
         .querySelector(".complete-item")
         .addEventListener("click", function () {
           item.querySelector(".item-name").classList.toggle(".completed");
+          this.classList.toggle("visibility");
         });
+
+      // edit event listener
+      item.querySelector(".edit-item").addEventListener("click", function () {
+        itemInput.value = textValue;
+        itemList.removeChild(item);
+
+        itemData = itemData.filter(function (item) {
+          return item !== textValue;
+        });
+      });
     }
   });
 }
