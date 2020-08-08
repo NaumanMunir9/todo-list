@@ -73,10 +73,18 @@ function handleItem(textValue) {
       item.querySelector(".edit-item").addEventListener("click", function () {
         itemInput.value = textValue;
         itemList.removeChild(item);
-
         itemData = itemData.filter(function (item) {
           return item !== textValue;
         });
+      });
+
+      // delete event listener
+      item.querySelector(".delete-item").addEventListener("click", function () {
+        itemList.removeChild(item);
+        itemData = itemData.filter(function (item) {
+          return item !== textValue;
+        });
+        showFeedback("item delete", "success");
       });
     }
   });
